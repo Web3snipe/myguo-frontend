@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-700;
+  }
+  
+  body {
+    @apply bg-[#0F0F0F] text-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-[#E879F9] to-[#A855F7] text-white px-6 py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-800 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-gray-700 transition-colors;
+  }
+  
+  .card {
+    @apply bg-[#1A1A1A] border border-gray-800 rounded-xl p-6;
+  }
+  
+  .input {
+    @apply bg-[#1A1A1A] border border-gray-800 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#E879F9] focus:border-transparent;
+  }
+  
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-all cursor-pointer;
+  }
+  
+  .sidebar-item-active {
+    @apply bg-gradient-to-r from-[#E879F9] to-[#A855F7] text-white;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Custom Range Slider Styles */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E879F9 0%, #A855F7 100%);
+    cursor: pointer;
+    border: 3px solid #000000;
+    box-shadow: 0 0 10px rgba(232, 121, 249, 0.5);
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E879F9 0%, #A855F7 100%);
+    cursor: pointer;
+    border: 3px solid #000000;
+    box-shadow: 0 0 10px rgba(232, 121, 249, 0.5);
+  }
+  
+  input[type="range"]:focus {
+    outline: none;
+  }
+  
+  input[type="range"]:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 15px rgba(232, 121, 249, 0.8);
+  }
+  
+  input[type="range"]:focus::-moz-range-thumb {
+    box-shadow: 0 0 15px rgba(232, 121, 249, 0.8);
+  }
+}

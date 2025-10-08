@@ -1,0 +1,102 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String      @id @default(cuid())
+  primaryWalletAddress String      @unique
+  createdAt            DateTime    @default(now())
+  wallets              Wallet[]
+  aiInsights           AIInsight[]
+  portfolioSnapshots   PortfolioSnapshot[]
+
+  @@index([primaryWalletAddress])
+}
+
+model Wallet {
+  id            String        @id @default(cuid())
+  userId        String
+  address       String        @unique
+  isPrimary     Boolean       @default(false)
+  aiTag         String?
+  totalValueUSD Float         @default(0)
+  lastSync      DateTime      @default(now())
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assets        Asset[]
+  transactions  Transaction[]
+
+  @@index([address])
+  @@index([userId, isPrimary])
+}
+
+model Asset {
+  id            String   @id @default(cuid())
+  walletId      String
+  tokenAddress  String
+  symbol        String
+  name          String
+  balance       String
+  valueUSD      Float
+  aiAnnotation  String?
+  lastUpdated   DateTime @default(now())
+  wallet        Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+  walletId  String
+  hash      String   @unique
+  type      String
+  fromToken String?
+  toToken   String?
+  amount    String
+  valueUSD  Float
+  gasUsed   String
+  gasPrice  String
+  aiLabel   String?
+  timestamp DateTime
+  wallet    Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([hash])
+  @@index([walletId])
+  @@index([timestamp])
+}
+
+model AIInsight {
+  id            String   @id @default(cuid())
+  userId        String
+  type          String
+  title         String
+  description   String
+  actionButton  String
+  actionData    String?  @db.Text
+  projectedGain String?
+  confidence    String
+  riskLevel     String
+  status        String   @default("active")
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}
+
+model PortfolioSnapshot {
+  id        String   @id @default(cuid())
+  userId    String
+  walletId  String?
+  value     Float
+  timestamp DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, timestamp])
+  @@index([walletId, timestamp])
+}
