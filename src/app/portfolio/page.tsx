@@ -12,6 +12,9 @@ import PortfolioChart from '@/components/portfolio/PortfolioChart';
 import AIInsightsSection from '@/components/ai/AIInsightsSection';
 import TransactionTable from '@/components/transactions/TransactionTable';
 import LoadingScreen from '@/components/common/LoadingScreen';
+import VirtualsEcosystemCard from '@/components/agent/VirtualsEcosystemCard';
+import AutonomousAgentPanel from '@/components/agent/AutonomousAgentPanel';
+import AgentActivityFeed from '@/components/agent/AgentActivityFeed';
 
 export default function PortfolioPage() {
   const { ready, authenticated, user: privyUser, login: privyLogin } = usePrivy();
@@ -82,15 +85,19 @@ export default function PortfolioPage() {
     enabled: !!user?.id,
   });
 
-  const { data: insights, isLoading: insightsLoading, refetch: refetchInsights } = useQuery({
-    queryKey: ['insights', user?.id],
+  const { data: insightsResponse, isLoading: insightsLoading, refetch: refetchInsights } = useQuery({
+    queryKey: ['insights', user?.id, viewMode, selectedWallet],
     queryFn: async () => {
-      if (!user?.id) return [];
-      const data = await getInsights(user.id);
-      return Array.isArray(data) ? data : [];
+      if (!user?.id) return null;
+      const walletIdParam = viewMode === 'individual' && selectedWallet ? selectedWallet : undefined;
+      const data = await getInsights(user.id, walletIdParam);
+      return data;
     },
     enabled: !!user?.id,
   });
+
+  // Extract insights array from response
+  const insights = insightsResponse?.insights || [];
 
   if (!ready) {
     return <LoadingScreen />;
@@ -101,7 +108,7 @@ export default function PortfolioPage() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Welcome to MyGuo</h1>
-          <p className="text-gray-400 mb-8">AI-powered crypto portfolio management</p>
+          <p className="text-gray-400 mb-8">AI-powered onchain discovery and portfolio intelligence</p>
           <button
             onClick={privyLogin}
             className="btn-primary text-lg px-8 py-3"
@@ -125,9 +132,6 @@ export default function PortfolioPage() {
   const historyChartData = historyData?.data || [];
   const changeValue = historyData?.change || 0;
   const changePercent = historyData?.changePercent || 0;
-  
-  // Handle insights - ensure it's an array
-  const insightsArray = insights || [];
 
   return (
     <div className="min-h-screen bg-[#0F0F0F] flex">
@@ -248,13 +252,35 @@ export default function PortfolioPage() {
               />
             </div>
 
+            {/* Virtuals Ecosystem Card - NEW */}
+            {portfolio?.assets && (
+              <VirtualsEcosystemCard
+                tokens={portfolio.assets.map((a: any) => ({
+                  symbol: a.symbol,
+                  name: a.name,
+                  balance: a.balance,
+                  valueUSD: a.valueUSD,
+                  change24h: Math.random() * 20 - 10, // Mock data for now
+                }))}
+                totalValue={currentValue}
+                portfolioPercentage={100}
+              />
+            )}
+
+            {/* Autonomous Agent Panel */}
+            <AutonomousAgentPanel userId={user.id} />
+
             {/* AI Insights */}
             <AIInsightsSection 
-              insights={insightsArray} 
+              insights={insights} 
               userId={user.id}
+              walletId={viewMode === 'individual' && selectedWallet ? selectedWallet : undefined}
               onRefresh={refetchInsights}
               isLoading={insightsLoading}
             />
+
+            {/* Agent Activity Feed */}
+            <AgentActivityFeed userId={user.id} limit={20} />
 
             {/* Transaction Table */}
             <TransactionTable 

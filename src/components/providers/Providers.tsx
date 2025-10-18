@@ -21,7 +21,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <PrivyProvider
-      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ''}
+      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || 'demo-app-id'}
       config={{
         appearance: {
           theme: 'dark',
@@ -30,7 +30,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
         },
         embeddedWallets: {
           createOnLogin: 'users-without-wallets',
+          noPromptOnSignature: true,
         },
+        // Disable browser wallet detection to prevent conflicts
+        walletConnectCloudProjectId: undefined,
+        // This prevents the ethereum property conflict
+        supportedChains: undefined,
       }}
     >
       <QueryClientProvider client={queryClient}>

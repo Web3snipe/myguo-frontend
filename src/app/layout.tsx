@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "MyGuo - AI Portfolio Manager",
-  description: "AI-powered crypto portfolio management with multi-wallet aggregation",
+  description: "AI-powered onchain discovery and portfolio intelligence with multi-wallet aggregation",
 };
 
 export default function RootLayout({

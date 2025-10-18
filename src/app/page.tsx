@@ -16,7 +16,7 @@ export default function Home() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Welcome to MyGuo</h1>
-          <p className="text-gray-400 mb-8">AI-powered crypto portfolio management</p>
+          <p className="text-gray-400 mb-8">AI-powered onchain discovery and portfolio intelligence</p>
           <button
             onClick={privyLogin}
             className="btn-primary text-lg px-8 py-3"

@@ -1,37 +1,77 @@
 # Dependencies
 node_modules/
-.pnp
-.pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Testing
-coverage/
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Next.js
 .next/
 out/
 build/
+
+# Production
 dist/
 
-# Misc
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Logs
+logs
+*.log
+
+# Database
+*.db
+*.sqlite
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
-*.pem
+Thumbs.db
 
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Backend files (not needed for frontend repo)
+backend/
+prisma/
+*.sh
+*.md
+!README.md
 
-# Local env files
-.env
-.env*.local
+# Test files
+test-*.sh
+create-test-user.ts
+check-status.sh
 
-# Vercel
-.vercel
-
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
-
-# Prisma
-prisma/migrations/
-
+# Documentation files
+AI_*.md
+ALPHA_*.md
+API_*.md
+DATA_*.md
+DAY*.md
+DEMO_*.md
+DISCOVERY_*.md
+ENHANCED_*.md
+FRONTEND_*.md
+GAS_*.md
+HACKATHON_*.md
+LAUNCH_*.md
+MULTI_*.md
+QUICK_*.md
+READY_*.md
+TEST_*.md
+TIER*.md
+TOKENOMICS.md
+VIRTUALS_*.md

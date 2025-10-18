@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
 
 export const api = axios.create({
   baseURL: `${API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000, // 10 second timeout
 });
 
 // Auth
@@ -50,19 +51,78 @@ export const getPortfolioHistory = async (userId: string, period: string = '1W')
   return data;
 };
 
-// AI
+// AI - Portfolio Insights (NEW - uses AI Portfolio Insights service)
+export const getPortfolioInsights = async (userId: string, walletId?: string) => {
+  const params: any = { userId };
+  if (walletId) params.walletId = walletId;
+  const { data } = await api.get('/portfolio/insights', { params });
+  return data;
+};
+
+export const generatePortfolioInsights = async (userId: string, walletId?: string) => {
+  const { data } = await api.post('/portfolio/insights/generate', { userId, walletId });
+  return data;
+};
+
+// AI - Legacy (kept for backward compatibility)
 export const generateInsights = async (userId: string) => {
   const { data } = await api.post('/ai/generate-insights', { userId });
   return data;
 };
 
-export const getInsights = async (userId: string) => {
-  const { data } = await api.get('/ai/insights', { params: { userId } });
-  return data;
+export const getInsights = async (userId: string, walletId?: string) => {
+  // Use new portfolio insights endpoint
+  return getPortfolioInsights(userId, walletId);
 };
 
 export const executeInsightAction = async (insightId: string) => {
   const { data } = await api.post(`/ai/insights/${insightId}/execute`);
+  return data;
+};
+
+// Agent Control
+export const startAgent = async (userId: string) => {
+  const { data } = await api.post('/agent/start', { userId });
+  return data;
+};
+
+export const stopAgent = async (userId: string) => {
+  const { data } = await api.post('/agent/stop', { userId });
+  return data;
+};
+
+export const getAgentStatus = async (userId: string) => {
+  const { data } = await api.get('/agent/status', { params: { userId } });
+  return data;
+};
+
+export const getAgentActivity = async (userId: string, limit: number = 20) => {
+  const { data } = await api.get('/agent/activity', { params: { userId, limit } });
+  return data;
+};
+
+export const getAgentStats = async (userId: string) => {
+  const { data } = await api.get('/agent/stats', { params: { userId } });
+  return data;
+};
+
+export const createStopLoss = async (
+  userId: string,
+  walletId: string,
+  tokenSymbol: string,
+  threshold: number = -15
+) => {
+  const { data } = await api.post('/agent/stop-loss', {
+    userId,
+    walletId,
+    tokenSymbol,
+    threshold,
+  });
+  return data;
+};
+
+export const getStopLossOrders = async (userId: string) => {
+  const { data } = await api.get('/agent/stop-loss', { params: { userId } });
   return data;
 };
 
@@ -84,6 +144,27 @@ export const syncWallet = async (walletId: string) => {
 
 export const syncAllWallets = async (userId: string) => {
   const { data } = await api.post('/wallets/sync-all', { userId });
+  return data;
+};
+
+// Discovery Functions
+export const saveDiscovery = async (userId: string, token: any) => {
+  const { data } = await api.post('/discovery/save', { userId, token });
+  return data;
+};
+
+export const addToWatchlist = async (userId: string, token: any, targetPrice?: number, notes?: string) => {
+  const { data } = await api.post('/discovery/watchlist/add', { userId, token, targetPrice, notes });
+  return data;
+};
+
+export const getWatchlist = async (userId: string) => {
+  const { data } = await api.get(`/discovery/watchlist/${userId}`);
+  return data;
+};
+
+export const getSavedDiscoveries = async (userId: string) => {
+  const { data} = await api.get(`/discovery/saved/${userId}`);
   return data;
 };
 
