@@ -143,3 +143,4 @@ Built with ❤️ for the Base ecosystem and Virtuals Protocol hackathon.<!-- Up
 <!-- Update 20 -->
 <!-- Update 30 -->
 <!-- Update 40 -->
+<!-- Update 50 -->
