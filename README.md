@@ -139,4 +139,4 @@ MIT License - see LICENSE file for details.
 
 ---
 
-Built with ❤️ for the Base ecosystem and Virtuals Protocol hackathon.
+Built with ❤️ for the Base ecosystem and Virtuals Protocol hackathon.<!-- Update 10 -->
