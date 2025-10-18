@@ -138,3 +138,4 @@ export default function DiscoveryPage() {
   );
 }
 
+// Optimize 6
