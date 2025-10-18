@@ -1,283 +1,142 @@
-# MyGuo - AI Portfolio Manager
+# MyGuo - AI-Powered Onchain Discovery & Portfolio Intelligence
 
-An AI-powered crypto portfolio manager with multi-wallet aggregation, intelligent insights, and comprehensive blockchain data integration.
+A sophisticated Web3 application built on Base L2 that combines AI-driven token discovery with autonomous portfolio management.
 
-![MyGuo Portfolio Manager](https://via.placeholder.com/800x400?text=MyGuo+AI+Portfolio+Manager)
+## 🚀 Features
 
-## Features
+### 🤖 Multi-Agent Collaboration
+- **4 Specialist AI Agents** working together with consensus-based decision making
+- **Scout Agent**: Identifies market opportunities and gem hunting ($300K-$10M market cap)
+- **Risk Agent**: Analyzes trade risks and portfolio exposure
+- **Execution Agent**: Executes approved trades on Base mainnet
+- **Monitor Agent**: Tracks performance and adjusts strategies
 
-- 🔐 **Privy Authentication** - Secure wallet connection with Privy SDK
-- 🎯 **Multi-Wallet Management** - Connect up to 5 wallets with AI-generated tags
-- 📊 **Portfolio Aggregation** - View combined portfolio or individual wallet performance
-- 🤖 **AI Insights** - Get actionable recommendations powered by Anthropic Claude
-- 📈 **Real-time Charts** - Beautiful portfolio performance visualization with Recharts
-- 💼 **Transaction History** - Complete transaction tracking with AI-powered labels
-- ⚡ **Multi-Chain Support** - Base, Ethereum, Arbitrum, and Polygon networks
-- 🎨 **Modern UI** - Clean, dark-themed interface matching Figma design specifications
+### 🔍 AI Discovery Engine
+- **Personalized Token Discovery** based on user preferences
+- **Real-time Market Intelligence** with Base ecosystem focus
+- **Smart Notifications** for price movements, volume spikes, and opportunities
+- **Virtuals Protocol Integration** for AI agent token discovery
+- **Advanced Filtering** by risk tolerance, time horizon, and investment thesis
 
-## Tech Stack
+### 📊 Portfolio Management
+- **Multi-wallet Aggregation** across different chains
+- **Autonomous Rebalancing** with stop-loss protection
+- **Yield Optimization** through DeFi protocol integration
+- **Real-time Analytics** with AI-powered insights
+- **Base L2 Native** for fast, low-cost transactions
 
-### Frontend
-- **Next.js 14** with App Router and TypeScript
-- **Tailwind CSS** for styling
-- **Privy SDK** (@privy-io/react-auth) for authentication
-- **Wagmi v2** and **Viem** for blockchain interactions
-- **TanStack Query** for data fetching and caching
-- **Recharts** for portfolio visualizations
-- **Lucide React** for icons
+## 🛠 Tech Stack
 
-### Backend
-- **Node.js/Express** API server
-- **PostgreSQL** with Prisma ORM
-- **Redis** for caching
-- **Anthropic Claude** for AI insights
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
+- **Blockchain**: Base L2, Wagmi, Ethers.js
+- **Authentication**: Privy
+- **AI Integration**: Claude API, Virtuals Protocol GAME SDK
+- **Data Sources**: CoinGecko, DexScreener, The Graph
+- **State Management**: React Query, Zustand
 
-### Blockchain & Data
-- **Alchemy SDK** for multi-chain RPC connections
-- **CoinGecko API** for token price data
-
-## Prerequisites
-
-- Node.js 18+ and npm/yarn/pnpm
-- PostgreSQL database
-- Redis server
-- API Keys:
-  - Privy App ID and Secret
-  - Anthropic API Key
-  - Alchemy API Key
-  - CoinGecko API Key (optional)
-
-## Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd v1_myguo
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   
-   Copy `.env.example` to `.env` and fill in your API keys:
-   ```bash
-   cp .env.example .env
-   ```
-
-   Required environment variables:
-   ```env
-   # Database
-   DATABASE_URL=postgresql://user:password@localhost:5432/myguo
-
-   # Redis
-   REDIS_URL=redis://localhost:6379
-
-   # Anthropic AI
-   ANTHROPIC_API_KEY=sk-ant-...
-
-   # Alchemy
-   ALCHEMY_API_KEY=your_alchemy_api_key
-
-   # CoinGecko
-   COINGECKO_API_KEY=your_coingecko_api_key
-
-   # Privy
-   PRIVY_APP_ID=your_privy_app_id
-   PRIVY_APP_SECRET=your_privy_app_secret
-   NEXT_PUBLIC_PRIVY_APP_ID=your_privy_app_id
-
-   # API
-   NEXT_PUBLIC_API_URL=http://localhost:3001
-   API_PORT=3001
-   ```
-
-4. **Set up the database**
-   ```bash
-   npm run prisma:generate
-   npm run prisma:migrate
-   ```
-
-5. **Start development servers**
-   ```bash
-   npm run dev
-   ```
-
-   This will start:
-   - Next.js frontend on `http://localhost:3000`
-   - Express backend on `http://localhost:3001`
-
-## Project Structure
+## 🏗 Architecture
 
 ```
-v1_myguo/
-├── backend/                 # Express API server
-│   ├── lib/                # Utilities (Prisma, Redis, Alchemy, Anthropic)
-│   ├── routes/             # API routes
-│   ├── services/           # Business logic
-│   └── server.ts           # Server entry point
-├── prisma/                 # Database schema and migrations
-│   └── schema.prisma
-├── src/
-│   ├── app/               # Next.js App Router pages
-│   ├── components/        # React components
-│   │   ├── activity/     # Activity feed
-│   │   ├── ai/           # AI insights
-│   │   ├── common/       # Shared components
-│   │   ├── layout/       # Header, Sidebar
-│   │   ├── portfolio/    # Portfolio charts and lists
-│   │   ├── providers/    # Context providers
-│   │   ├── transactions/ # Transaction table
-│   │   └── wallet/       # Wallet management
-│   ├── lib/              # Frontend utilities
-│   └── types/            # TypeScript types
-└── public/               # Static assets
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   Backend API    │    │   Blockchain    │
+│   (Next.js)     │◄──►│   (Express)      │◄──►│   (Base L2)     │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   AI Agents     │    │   Data Sources   │    │   DeFi Protocols│
+│   (Claude)      │    │   (CoinGecko)    │    │   (Uniswap V3)  │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-## Key Features Explained
+## 🚀 Getting Started
 
-### 1. Multi-Wallet Management
-- Connect your primary wallet via Privy authentication
-- Add up to 4 additional wallets for monitoring
-- Each wallet receives an AI-generated tag based on usage patterns
-- View aggregate portfolio or individual wallet performance
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- Base L2 wallet (MetaMask recommended)
 
-### 2. AI-Powered Insights
-The system analyzes your portfolio and generates actionable insights:
-- **Idle Asset Detection** - Identifies tokens sitting idle and suggests yield opportunities
-- **Concentration Risk** - Warns about over-concentration in single assets
-- **Gas Optimization** - Analyzes transaction costs and suggests savings
-- **Yield Opportunities** - Discovers cross-chain yield farming options
+### Installation
 
-### 3. Portfolio Visualization
-- Real-time portfolio value tracking
-- Historical performance charts (1D, 1W, 1M, 3M, 6M, 1Y)
-- Asset distribution breakdown
-- Sparkline charts for individual tokens
+```bash
+# Clone the repository
+git clone https://github.com/Web3snipe/myguo-frontend.git
+cd myguo-frontend
 
-### 4. Transaction Analysis
-- Complete transaction history across all wallets
-- AI-generated labels for optimization suggestions
-- Status tracking (success, pending, failed)
-- Gas cost analysis
+# Install dependencies
+npm install
 
-### 5. Multi-Chain Support
-Supports the following networks:
-- **Base** (Chain ID: 8453)
-- **Ethereum** (Chain ID: 1)
-- **Arbitrum** (Chain ID: 42161)
-- **Polygon** (Chain ID: 137)
+# Set up environment variables
+cp env.local.example .env.local
+# Edit .env.local with your API keys
 
-## API Routes
+# Run development server
+npm run dev
+```
 
-### Authentication
-- `POST /api/auth/login` - Login/register user with wallet address
-- `GET /api/auth/me` - Get current user
+### Environment Variables
 
-### Wallets
-- `POST /api/wallets/add` - Add new wallet
-- `DELETE /api/wallets/:id` - Remove wallet
-- `GET /api/wallets/:address/balance` - Get wallet balance
-- `GET /api/wallets/:address/transactions` - Get transaction history
+```env
+# Required
+NEXT_PUBLIC_PRIVY_APP_ID=your_privy_app_id
+NEXT_PUBLIC_ALCHEMY_API_KEY=your_alchemy_key
+ANTHROPIC_API_KEY=your_claude_key
 
-### Portfolio
-- `GET /api/portfolio/summary` - Get aggregated portfolio
-- `GET /api/portfolio/history` - Get historical values
+# Optional
+GAME_API_KEY=your_game_sdk_key
+COINGECKO_API_KEY=your_coingecko_key
+```
 
-### AI
-- `POST /api/ai/generate-insights` - Generate AI insights
-- `GET /api/ai/insights` - Get active insights
-- `PATCH /api/ai/insights/:id` - Update insight status
+## 📱 Usage
 
-## Caching Strategy
+1. **Connect Wallet**: Use Privy authentication to connect your Base wallet
+2. **Set Preferences**: Configure your discovery preferences for personalized recommendations
+3. **Explore Discovery**: Browse AI-curated token opportunities with real-time data
+4. **Manage Portfolio**: Use autonomous agents for portfolio management and rebalancing
+5. **Monitor Performance**: Track your investments with AI-powered analytics
 
-- **Blockchain Data**: 2 minutes cache in Redis
-- **Token Prices**: 5 minutes cache
-- **AI Insights**: 1 hour cache
-- **Portfolio Summary**: 2 minutes cache
+## 🎯 Key Components
 
-## Security Considerations
+### Discovery Feed
+- Real-time token scanning across Base ecosystem
+- AI-powered narratives and market context
+- Personalized recommendations based on user preferences
+- Smart notifications for opportunities
 
-- All wallet connections are read-only
-- No private keys or seed phrases are stored
-- API rate limiting: 100 requests/minute per user
-- All inputs are validated and sanitized
-- CORS configured for production deployment
+### Multi-Agent System
+- Collaborative decision making with 3/4 consensus requirement
+- Specialized agent expertise in different areas
+- Real-time communication and voting system
+- Autonomous execution on Base mainnet
 
-## Development Tips
+### Portfolio Intelligence
+- Multi-wallet aggregation and tracking
+- AI-powered insights and recommendations
+- Risk management and position sizing
+- Performance analytics and reporting
 
-1. **Database Migrations**
-   ```bash
-   npm run prisma:migrate
-   ```
+## 🔒 Security
 
-2. **View Database**
-   ```bash
-   npm run prisma:studio
-   ```
+- No private keys stored locally
+- All transactions require user approval
+- Secure API key management
+- Base L2 native for gas efficiency
 
-3. **Type Generation**
-   ```bash
-   npm run prisma:generate
-   ```
+## 🤝 Contributing
 
-4. **Build for Production**
-   ```bash
-   npm run build
-   npm start
-   ```
+This is a hackathon project for Virtuals Protocol. For contributions or questions, please contact the development team.
 
-## Design Reference
+## 📄 License
 
-The UI follows the Figma design specifications:
-- **Background**: #0A0A0A
-- **Primary (Purple)**: #7C3AED
-- **Success (Green)**: #10B981
-- **Danger (Red)**: #EF4444
-- **Warning (Yellow)**: #F59E0B
+MIT License - see LICENSE file for details.
 
-[View Figma Design](https://www.figma.com/design/MUD4wte5FHS5mQNLYloE6I/Mygo?node-id=0-1&p=f&t=GiI4QSpGQ9l3GN4J-0)
+## 🔗 Links
 
-## Troubleshooting
-
-### Database Connection Issues
-- Ensure PostgreSQL is running
-- Verify DATABASE_URL in .env
-- Run `npm run prisma:generate`
-
-### Redis Connection Issues
-- Ensure Redis server is running
-- Check REDIS_URL in .env
-
-### Alchemy API Errors
-- Verify ALCHEMY_API_KEY is correct
-- Check rate limits on your Alchemy dashboard
-
-### Privy Authentication Errors
-- Ensure PRIVY_APP_ID and PRIVY_APP_SECRET are correct
-- Check Privy dashboard for app configuration
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## License
-
-MIT License - see LICENSE file for details
-
-## Support
-
-For issues and questions:
-- Create an issue on GitHub
-- Contact the development team
+- **Repository**: [GitHub](https://github.com/Web3snipe/myguo-frontend)
+- **Developer**: [@Web3snipe](https://github.com/Web3snipe)
+- **Base Ecosystem**: [Base.org](https://base.org)
+- **Virtuals Protocol**: [Virtuals.io](https://virtuals.io)
 
 ---
 
-Built with ❤️ using Next.js, Anthropic Claude, and Alchemy
-
+Built with ❤️ for the Base ecosystem and Virtuals Protocol hackathon.
